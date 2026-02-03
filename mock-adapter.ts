@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import type { IAdapter, IMessage } from '../core/index';
+import type { IAdapter, IMessage } from "../one-q-4-all/packages/core/index";
 
 export class MockBrokerAdapter extends EventEmitter implements IAdapter {
     name: string;

@@ -81,8 +81,38 @@ await scenario.assertReceived('target', 'topic', {
 Verifique se seu sistema está processando rápido o suficiente.
 
 ```typescript
-// (Feature em desenvolvimento: validação de tempo de entrega)
-// await scenario.assertLatency('source', 'target', 50); // máx 50ms
+// Registre o momento do estímulo
+const stimulusTs = await scenario.actEmit('redis-source', 'sensor_data', { temp: 25.5 });
+
+// Valide se chegou no destino em menos de 100ms
+await scenario.assertLatency('kafka-target', 'analytics_topic', { temp: 25.5 }, 100, stimulusTs);
+```
+
+---
+
+## 🏗️ Como foi feito
+
+O `assertLatency` foi implementado utilizando um loop de polling assíncrono que verifica o histórico de mensagens publicadas no adapter de destino. 
+
+1. **Captura de Estímulo**: O método `actEmit` agora retorna o timestamp EXATO de quando a mensagem simulada entrou no sistema.
+2. **Cálculo de Delta**: O `assertLatency` busca no histórico do broker de destino uma mensagem que coincida com o payload (Partial Match) e que tenha sido publicada APÓS o timestamp do estímulo.
+3. **Validação**: Se a diferença entre o timestamp de publicação e o timestamp do estímulo for maior que o `maxLatencyMs` fornecido, o teste falha com uma mensagem descritiva.
+
+### Fontes de Informação
+- [Bun Test Documentation](https://bun.sh/docs/test/writing)
+- [Node.js EventEmitter](https://nodejs.org/api/events.html)
+
+## 🚀 Como testar a ferramenta
+
+Para rodar os testes internos do kit:
+
+```bash
+bun test
+```
+
+Para testar especificamente a latência:
+```bash
+bun test tests/latency.test.ts
 ```
 
 ### 🎭 Mocking Complexo

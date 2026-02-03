@@ -1,0 +1,33 @@
+{
+  "name": "@purecore/queue-test-kit",
+  "version": "1.0.0",
+  "description": "Framework de testes e2e e unitários para sistemas de filas",
+  "main": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "bun-types": "latest"
+  },
+  "keywords": [
+    "testing",
+    "queue",
+    "mock",
+    "kafka",
+    "redis",
+    "nats",
+    "event-sourcing"
+  ],
+  "author": "Jean Carlo Nascimento <antigravity@purecore.io>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

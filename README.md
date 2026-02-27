@@ -1,4 +1,4 @@
-# 🧪 Queue Test Kit
+# 🧪 Polyglot Queue Tester
 
 > **The Universal Testing Framework for Event-Driven Architectures.**
 > Test complex routing, failovers, and latency assertions without spinning up a single Docker container.
@@ -147,3 +147,4 @@ describe('Payment Flow', () => {
 
 ## 📝 Licença
 MIT © Jean Carlo Nascimento
+
